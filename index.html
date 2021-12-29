@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=1.0,user-scalable=no;">
+    <title>成语填字</title>
+    <style>*{margin: 0;padding: 0;box-sizing: border-box;user-select: none;-webkit-user-select: none;-moz-user-select: none;}html,body{background-color: #90807f;display: flex;flex-direction: column;width: 100%;}.bdp{position: sticky !important;}.bdp>svg{z-index: 20;position: absolute !important;transform: translate(-50%,-50%) !important;display: none;}.rdbd{border-color: #8f2e30;}.st,.space,.suc{z-index: 10;border-radius: 20%;position: relative !important;display: flex;flex-direction: row;align-items: center;justify-content: center;width: 100%;}.st{background-color: #d49a5a;border: 2px #bb8d5c solid;}.space{background-color: #e9debe;border: 2px #9d9780 solid;}.suc{background-color: #dfb831;border: 2px #a19461 solid;}.err{color: #db4345;}main{flex: 1 1 0;margin: 1rem;}main>div:nth-of-type(1),main>div:nth-of-type(4)>div:nth-of-type(1){display: flex;font-size: 1.25rem;margin: .3rem 0;}main>div:nth-of-type(1),main>div:nth-of-type(2){justify-content: space-between;flex-direction: row;}main>div:nth-of-type(2){display: flex;}main>div:nth-of-type(2){height: 0;overflow: hidden;}main>div:nth-of-type(2){transition: height .3s ease-in-out;}main>div:nth-of-type(2).show{height: 2rem;}main>div:nth-of-type(2) input{font-size: 1.2rem;}main>div:nth-of-type(2) input.seed{min-width: 8rem;}main>div:nth-of-type(2) input.button{padding-left: .2rem;padding-right: .2rem;}main>div:nth-of-type(2)>span:nth-of-type(2){display: none;}main>div:nth-of-type(4)>div:nth-of-type(1){flex-direction: row-reverse;}main>div:nth-of-type(5){display: flex;flex-direction: row;align-items: center;justify-content: center;margin: .8rem 0;}main>div:nth-of-type(5)>span{display: none;font-size: 1.5rem;padding: .4rem 1rem;}table,tr,td{border-collapse: collapse;}.bdp>table div{height: 0 !important;position: sticky !important;display: flex;flex-direction: row;}.bdp>table div>span{/* position: absolute !important; */position: relative !important;flex: 1 1 0;display: flex;flex-direction: row;align-items: center;justify-content: center;font-size: 1.25rem;}table,tr{gap: 0 !important;}.bdp>table{background-color: #b3ac9b;width: 100%;border-width: 3px;border-style: solid;display: flex;flex-direction: column;box-sizing: content-box;}tr{flex: 1 1 0;display: flex;flex-direction: row;}.bdp>table>tr:nth-of-type(2n+1){border-bottom: 1px #aa8f80 solid;}.bdp>table>tr>td+td:nth-of-type(2n){border-left: 1px #aa8f80 solid;}td{flex: 1 1 0;}table.bakbd,table.bakbd *{border-style: none;}table.bakbd{width: 100%;display: flex;flex-direction: column;}table.bakbd td>span{display: none;flex-direction: row;align-items: center;justify-content: center;font-size: 1.25rem;}table.bakbd td>span.show{display: flex;width: 92%;height: 92%;background-color: #e9debe;border-radius: 20%;}</style>
+    <link rel="icon" href="favicon.ico">
+</head>
+
+<body>
+    <main>
+        <div><span id="xinti">新题</span><span id="suijizhongzi">随机种子</span></div>
+        <div><span><input type="text" size="1" readonly="readonly" class="seed"></span><span><input type="text" size="1"
+                    placeholder="输入随机种子" class="seed"></span><span><input type="button" size="1" value="自定义随机种子"
+                    class="button"></span><span><input type="button" size="1" value="关闭" class="button"></span></div>
+        <div class="bdp">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="#b63739"
+                stroke-opacity="0.8" stroke-width="8" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="46" />
+            </svg>
+            <table class="rdbd"></table>
+        </div>
+        <div>
+            <div><span id="tishi">提示一个字</span></div>
+            <div>
+                <table class="bakbd"></table>
+            </div>
+        </div>
+        <div><span id="xinti2">新题</span></div>
+    </main>
+    <script src="all.s.js"></script>
+</body>
+
+</html>
