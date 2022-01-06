@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=1.0,user-scalable=no;">
+    <title>扫雷</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="toast">游戏结束</div>
+    <div class="appbox fc">
+        <div class="title fr"><img id="startNewGame" src="arrow-clockwise.svg" alt="开始新游戏">
+            <div class="info fr">
+                <div class="flagbox fr"><img src="flag.png" alt="剩余雷数"><span id="leiNum"></span></div>
+                <div class="wulei fr"><span>无雷未<br>开启数</span><span id="wuleiNum"></span></div>
+            </div>
+            <div class="imgbox fr"><img id="toset" src="list.svg" alt="选项"></div>
+        </div>
+        <style id="leiqu-style"></style>
+        <div class="quyu fc">
+            <div id="leiqu"></div>
+        </div>
+    </div>
+    <div class="mask">
+        <div class="options">
+            <div class="close"><span class="closebutton"></span></div>
+            <div>
+                <div class="fr"><input type="radio" name="level" value="a" id="ra"><label for="ra">简单</label></div>
+                <div class="fr"><input type="radio" name="level" value="b" id="rb" checked><label for="rb">一般</label>
+                </div>
+                <div class="fr"><input type="radio" name="level" value="c" id="rc"><label for="rc">困难</label></div>
+                <div class="fr"><input type="radio" name="level" value="d" id="rd"><label for="rd">自定义</label></div>
+                <label>宽：<input type="number" name="kuan" min="2" step="1" size="1" disabled></label>
+                <label>长：<input type="number" name="chang" min="2" step="1" size="1" disabled></label>
+                <label>雷数：<input type="number" name="leishu" min="1" step="1" size="1" disabled></label>
+            </div>
+            <div class="queding">
+                <span class="mbutton">确定</span>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>
