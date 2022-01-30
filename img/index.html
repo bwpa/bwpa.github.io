@@ -8,7 +8,7 @@
   <link rel="icon" href="data:;base64,=">
   <title>去图片信息</title>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;}body{padding:1rem;font-size:1.2rem;}img{display:none;}canvas{width:100%;height:calc(100vw - 32px);border:1px #333 solid;}.c>div:nth-of-type(1){display:flex;flex-direction:row;justify-content:space-around;}.c>div:nth-of-type(1)>input,.c>div:nth-of-type(1)>button{padding:0 .3rem;font-size:1.2rem;}#fls{margin:1rem 0;height:0;overflow:hidden;gap:0;transition:height .5s ease-in-out;}#fls>div{font-size:1.2rem;}#fls>#fbx{display:flex;flex-direction:column;width:6rem;}#fls>#fbx>button{height:2rem;padding:0 .3rem;font-size:1.1rem;border-radius:0;}a#a{display:none;}
+    *{margin:0;padding:0;box-sizing:border-box;}body{padding:1rem;font-size:1.2rem;}img{display:none;}canvas{width:100%;height:calc(100vw - 32px);border:1px #333 solid;}.c>div:nth-of-type(1){display:flex;flex-direction:row;justify-content:space-around;}.c>div:nth-of-type(1)>input,.c>div:nth-of-type(1)>button{padding:0 .3rem;font-size:1.2rem;}a#a{display:none;}
   </style>
 </head>
 <body>
@@ -18,18 +18,6 @@
     <div><input style="display:none;" type="file" accept="image/*" id="file" /><button id="upload">上传图片</button><button
         id="download">保存图片</button>
     </div>
-    <div id="fls">
-      <div>选择格式：</div>
-      <div id="fbx"><button
-        data-format="image/png">PNG</button><button
-        data-format="image/jpeg">JPEG</button><button
-        data-format="image/x-icon">ICO</button><button
-        data-format="image/bmp">BMP</button><button
-        data-format="image/gif">GIF</button><button
-        data-format="image/webp">WEBP</button><button
-        data-format="image/apng">APNG</button><button
-        data-format="image/avif">AVIF</button></div>
-    </div>
   </div>
   <a id="a"></a>
   <script>
@@ -38,81 +26,74 @@
     const $input = document.getElementById('file');
     const $upload = document.getElementById('upload');
     const $download = document.getElementById('download');
-    const $fls = document.getElementById('fls');
-    const $fbx = document.getElementById('fbx');
     const /**@type {HTMLAnchorElement} */ $a = document.getElementById('a');
     const /**@type {CanvasRenderingContext2D} */ ctx = $canvas.getContext('2d');
-    /**@type {{[x:string]:string}} */
-    // const mime = {
-    //     'image/apng': 'apng',
-    //     'image/avif': 'avif',
-    //     'image/bmp': 'bmp',
-    //     'image/gif': 'gif',
-    //     'image/x-icon': 'ico',
-    //     'image/jpeg': 'jpg',
-    //     'image/png': 'png',
-    //     'image/svg+xml': 'svg',
-    //     'image/tiff': 'tif',
-    //     'image/webp': 'webp',
-    // };
-    const qualitymime = {
-      'image/jpeg': 'jpg',
-      'image/webp': 'webp',
+    const mime = {
+        'image/apng': 'apng',
+        'image/avif': 'avif',
+        'image/bmp': 'bmp',
+        'image/gif': 'gif',
+        'image/x-icon': 'ico',
+        'image/jpeg': 'jpg',
+        'image/png': 'png',
+        'image/svg+xml': 'svg',
+        'image/tiff': 'tif',
+        'image/webp': 'webp',
     };
-    let filename = "未命名"/* , fileext */;
+    const types = [
+        'apng',
+        'avif',
+        'bmp',
+        'gif',
+        'ico',
+        'jpg',
+        'png',
+        'svg',
+        'tif',
+        'webp',
+    ];
+    const qualitymime = {
+        'image/jpeg': 'jpg',
+        'image/webp': 'webp',
+    };
+    let filename = "未命名", filetype;
     let ting = false;
-
-    $input.addEventListener('change', function (ev) {
-      let /**@type {FileList} */ files = $input.files;
-      let file = files[0];
-      if (file) {
-        // let filemime;
-        let reader = new FileReader();
-        filename = file.name;
-        // filemime = file.type;
-        // fileext = filemime.length == 0 ? '' : mime[filemime];
-        // if (!fileext) fileext = '';
-        $img.onload = function (ev) {
-          $canvas.width = $img.naturalWidth;
-          $canvas.height = $img.naturalHeight;
-          ctx.drawImage($img, 0, 0);
-          $canvas.style.height = "unset";
-        };
-        reader.onload = function (ev) {
-          $img.src = ev.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
+    
+    $input.addEventListener('change', function () {
+        let /**@type {FileList} */ files = $input.files;
+        let file = files[0];
+        if (file) {
+            let reader = new FileReader();
+            filename = file.name;
+            filetype = file.type || 'image/jpeg';
+            (filename.indexOf('.') != -1) && ((types.indexOf(filename.substring(filename.lastIndexOf('.') + 1))) != -1) && (filename = filename.substring(0, filename.lastIndexOf('.')));
+            $img.onload = function () {
+                $canvas.width = $img.naturalWidth;
+                $canvas.height = $img.naturalHeight;
+                ctx.drawImage($img, 0, 0);
+                $canvas.style.height = "unset";
+            };
+            reader.onload = function (ev) {
+                $img.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
     });
-    $upload.addEventListener('click', function (ev) { $input.click(); });
-    $download.addEventListener('click', function (ev) {
-      let ht = (parseFloat(window.getComputedStyle(
-        document.querySelector('#fls>:nth-of-type(1)'), null).height) +
-        parseFloat(window.getComputedStyle($fbx, null).height)).toString() + 'px';
-      $fls.style.height = ht;
-    });
-    $fbx.addEventListener('click', function (ev) {
-      let /**@type {HTMLButtonElement} */ e = ev.target;
-      if (e.hasAttribute('data-format')) {
-        let type = e.dataset['format'];
-        if (ting) { return; }
+    $upload.addEventListener('click', function () {$input.click();});
+    $download.addEventListener('click', function () {
+        if (ting) {return;}
         ting = true;
         $canvas.toBlob(function (blob) {
-          try {
-            // let fn = filename;
-            // let idx = fn.lastIndexOf('.');
-            // if (idx != -1) { fn = fn.slice(0, idx); }
-            $a.download = filename/*  + (fileext.length == 0 ? '' : ('.' + fileext)) */;
-            $a.href = URL.createObjectURL(blob);
-            $a.click();
-            $fls.style.height = '0';
-          } catch (e) {
-            alert('转换失败\uff01');
-          } finally {
-            ting = false;
-          }
-        }, type, qualitymime[type] ? 1 : undefined);
-      }
+            try {
+                $a.download = filename + '.' + (mime[filetype] || 'jpg');
+                $a.href = URL.createObjectURL(blob);
+                $a.click();
+            } catch (e) {
+                alert('转换失败\uff01');
+            } finally {
+                ting = false;
+            }
+        }, filetype, qualitymime[filetype] ? 0.8 : undefined);
     });
   </script>
 </body>
